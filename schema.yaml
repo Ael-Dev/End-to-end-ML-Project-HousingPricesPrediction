@@ -1,1 +1,17 @@
-key: val
+COLUMNS:
+  area: float64
+  vbedrooms: float64
+  bathrooms: float64
+  stories: float64
+  mainroad: object
+  guestroom: object
+  basement: object
+  hotwaterheating: object
+  airconditioning: object
+  parking: float64
+  prefarea: object
+  furnishingstatus: object
+
+
+TARGET_COLUMN:
+  name: price

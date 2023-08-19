@@ -1,8 +1,11 @@
 from mlProject.constants import *
 from mlProject.utils.common import read_yaml, create_directories 
-from mlProject.entity.config_entity import DataIngestionConfig 
+from mlProject.entity.config_entity import DataIngestionConfig, DataValidationConfig 
 
 class ConfigurationManager:
+
+   # ------------------------------------------------------------------------------------------------
+  
     # Definir el método constructor que recibe las rutas de los archivos de configuración, parámetros y esquema
     def __init__(
         self,
@@ -17,6 +20,7 @@ class ConfigurationManager:
         # Crear el directorio raíz para los artefactos del proyecto
         create_directories([self.config.artifacts_root])
 
+  # ------------------------------------------------------------------------------------------------
 
     # Definir un método que devuelve la configuración para la ingesta de datos
     def get_data_ingestion_config(self) -> DataIngestionConfig:
@@ -34,3 +38,20 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
+    # ------------------------------------------------------------------------------------------------
+
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config = self.config.data_validation
+        schema = self.schema.COLUMNS # obtener las columnas desde el archivo yaml
+        # Crear el directorio raíz para la validación de datos
+        create_directories([config.root_dir])
+        # Crear un objeto de la clase DataValidationConfig con los parámetros de la configuración
+        data_validation_config = DataValidationConfig(
+            root_dir=config.root_dir,
+            STATUS_FILE=config.STATUS_FILE,
+            unzip_data_dir = config.unzip_data_dir,
+            all_schema=schema,
+        )
+
+        return data_validation_config
